@@ -5,6 +5,8 @@ import 'package:shop_app/providers/product.dart';
 import '/screens/product_detail.dart';
 
 class ProductItem extends StatelessWidget {
+  ProductItem({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final product = Provider.of<Product>(context, listen: false);

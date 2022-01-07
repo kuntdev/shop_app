@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
             colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.purple)
                 .copyWith(secondary: Colors.orange),
-            fontFamily: 'MangaStyle'),
+            fontFamily: 'Arial'),
         home: ProductsOverView(),
         routes: {ProductDetail.routeName: (ctx) => ProductDetail()},
       ),
