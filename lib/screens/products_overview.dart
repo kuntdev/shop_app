@@ -1,9 +1,7 @@
 // ignore: avoid_web_libraries_in_flutter
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import '/widgets/products_grid.dart';
-import '/providers/products.dart';
 
 enum FilterOptions { favorites, all }
 
