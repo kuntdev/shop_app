@@ -1,6 +1,6 @@
 # shop_app
 
-A new Flutter project.
+A new flutter project that implements [provider](https://pub.dev/packages/provider) package. 
 
 ## Getting Started
 
