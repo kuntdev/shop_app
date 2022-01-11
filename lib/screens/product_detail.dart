@@ -12,6 +12,9 @@ class ProductDetail extends StatelessWidget {
       appBar: AppBar(
         title: Text(product.title),
       ),
+      body: Center(
+        child: Text(product.description),
+      ),
     );
   }
 }
