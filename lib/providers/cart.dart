@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 
 class CartItem {
   String id;
+  String productId;
   String title;
   double price;
   int quantity;
 
   CartItem({
     required this.id,
+    required this.productId,
     required this.title,
     required this.price,
     required this.quantity,
@@ -42,6 +44,7 @@ class Cart with ChangeNotifier {
         productId,
         (existingCartItem) => CartItem(
           id: existingCartItem.id,
+          productId: existingCartItem.productId,
           title: existingCartItem.title,
           price: existingCartItem.price,
           quantity: existingCartItem.quantity + 1,
@@ -52,12 +55,18 @@ class Cart with ChangeNotifier {
         productId,
         () => CartItem(
           id: DateTime.now().toString(),
+          productId: productId,
           title: title,
           price: price,
           quantity: 1,
         ),
       );
     }
+    notifyListeners();
+  }
+
+  void removeItem(String productId) {
+    _items.remove(productId);
     notifyListeners();
   }
 }
