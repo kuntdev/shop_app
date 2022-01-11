@@ -1,14 +1,16 @@
 // ignore: avoid_web_libraries_in_flutter
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shop_app/providers/cart.dart';
+import 'package:shop_app/screens/cart_detail.dart';
+import 'package:shop_app/widgets/badge.dart';
 
 import '/widgets/products_grid.dart';
-import '/providers/products.dart';
 
 enum FilterOptions { favorites, all }
 
 class ProductsOverView extends StatefulWidget {
-  ProductsOverView({Key? key}) : super(key: key);
+  const ProductsOverView({Key? key}) : super(key: key);
 
   @override
   _ProductsOverViewState createState() => _ProductsOverViewState();
@@ -44,6 +46,20 @@ class _ProductsOverViewState extends State<ProductsOverView> {
                 value: FilterOptions.all,
               ),
             ],
+          ),
+          Consumer<Cart>(
+            builder: (_, cart, ch) => Badge(
+              child: ch!,
+              value: cart.itemCount.toString(),
+            ),
+            child: IconButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed(CartDetail.routeName);
+              },
+              icon: const Icon(
+                Icons.shopping_cart,
+              ),
+            ),
           ),
         ],
       ),
