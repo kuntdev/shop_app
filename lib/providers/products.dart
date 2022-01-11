@@ -16,21 +16,21 @@ class Products with ChangeNotifier {
         id: 'p2',
         title: 'hiyori',
         description: 'one piece : hiyori figure',
-        price: 10.0,
+        price: 5.0,
         imageUrl:
             'https://bbts1.azureedge.net/images/p/full/2020/10/da9ab6e1-12e1-4d9d-8c34-669d8562f924.jpg'),
     Product(
         id: 'p3',
         title: 'luffy',
         description: 'one piece : luffy figure',
-        price: 10.0,
+        price: 12.0,
         imageUrl:
             'https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcQFhannZ7jMpDYDCx3xz2HbG572dHoJ-bplW20jUUqdkqiYeJn8N1PHSKKje8ccfNzUKGfnEDj7LVio7ncR31N0FGQFDySBzgRa5MJEOBbMrVyM4NsNxwsgCw&usqp=CAE'),
     Product(
         id: 'p4',
         title: 'boa hancock',
         description: 'one piece : boa hancock figure',
-        price: 10.0,
+        price: 8.0,
         imageUrl:
             'https://img.joomcdn.net/5ca07d09f31a9d849b52a6b95328f568db55ee7c_original.jpeg'),
   ];
