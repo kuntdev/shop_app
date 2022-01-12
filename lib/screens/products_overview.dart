@@ -1,10 +1,13 @@
 // ignore: avoid_web_libraries_in_flutter
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shop_app/providers/cart.dart';
-import 'package:shop_app/screens/cart_detail.dart';
-import 'package:shop_app/widgets/badge.dart';
 
+import '/providers/cart.dart';
+
+import '/screens/cart_detail.dart';
+
+import '/widgets/app_drawer.dart';
+import '/widgets/badge.dart';
 import '/widgets/products_grid.dart';
 
 enum FilterOptions { favorites, all }
@@ -63,6 +66,7 @@ class _ProductsOverViewState extends State<ProductsOverView> {
           ),
         ],
       ),
+      drawer: AppDrawer(),
       body: ProductsGrid(_showFavorites),
     );
   }
