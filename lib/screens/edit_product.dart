@@ -10,12 +10,30 @@ class EditProduct extends StatefulWidget {
 class _EditProductState extends State<EditProduct> {
   final _priceFocusNode = FocusNode();
   final _descriptionFocusNode = FocusNode();
+  final _imageurlFocusNode = FocusNode();
+  final _imageUrlController = TextEditingController();
+
+  @override
+  void initState() {
+    _imageurlFocusNode.addListener(_imageUrlChanged);
+    super.initState();
+  }
 
   @override
   void dispose() {
     _priceFocusNode.dispose();
     _descriptionFocusNode.dispose();
+    _imageurlFocusNode.dispose();
+    _imageUrlController.dispose();
+    _imageurlFocusNode.removeListener(_imageUrlChanged);
+
     super.dispose();
+  }
+
+  void _imageUrlChanged() {
+    if (!_imageurlFocusNode.hasFocus) {
+      setState(() {});
+    }
   }
 
   @override
@@ -36,7 +54,7 @@ class _EditProductState extends State<EditProduct> {
                 label: Text('Title'),
               ),
               textInputAction: TextInputAction.next,
-              onFieldSubmitted: (value) {
+              onFieldSubmitted: (_) {
                 FocusScope.of(context).requestFocus(_priceFocusNode);
               },
             ),
@@ -47,7 +65,7 @@ class _EditProductState extends State<EditProduct> {
               textInputAction: TextInputAction.next,
               keyboardType: TextInputType.number,
               focusNode: _priceFocusNode,
-              onFieldSubmitted: (value) {
+              onFieldSubmitted: (_) {
                 FocusScope.of(context).requestFocus(_descriptionFocusNode);
               },
             ),
@@ -58,6 +76,44 @@ class _EditProductState extends State<EditProduct> {
               maxLines: 3,
               keyboardType: TextInputType.multiline,
               focusNode: _descriptionFocusNode,
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Container(
+                  width: 100,
+                  height: 100,
+                  margin: const EdgeInsets.only(
+                    top: 8,
+                    right: 5,
+                  ),
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.grey,
+                      width: 1,
+                    ),
+                  ),
+                  child: _imageUrlController.text.isEmpty
+                      ? const Text('Enter URL')
+                      : FittedBox(
+                          fit: BoxFit.cover,
+                          child: Image.network(
+                            _imageUrlController.text,
+                          ),
+                        ),
+                ),
+                Expanded(
+                  child: TextFormField(
+                    decoration: const InputDecoration(
+                      label: Text('Image Url'),
+                    ),
+                    keyboardType: TextInputType.url,
+                    textInputAction: TextInputAction.done,
+                    focusNode: _imageurlFocusNode,
+                    controller: _imageUrlController,
+                  ),
+                ),
+              ],
             ),
           ],
         )),
