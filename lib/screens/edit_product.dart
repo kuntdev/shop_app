@@ -49,43 +49,40 @@ class _EditProductState extends State<EditProduct> {
     }
   }
 
-  void _saveForm() {
+  Future<void> _saveForm() async {
     _form.currentState!.save();
     setState(() {
       _isLoading = true;
     });
-    Provider.of<Products>(context, listen: false)
-        .addProduct(_editedProduct)
-        .catchError(
-      (error) {
-        showDialog(
-          context: context,
-          builder: (ctx) => AlertDialog(
-            title: const Text(
-              'An error occurred!',
-            ),
-            content: const Text('Something went wrong!'),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: const Text('Ok!'),
-              ),
-            ],
+    try {
+      await Provider.of<Products>(context, listen: false)
+          .addProduct(_editedProduct);
+    } catch (eror) {
+      await showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          title: const Text(
+            'An error occurred!',
           ),
-        );
-      },
-    ).then(
-      (_) {
-        Navigator.of(context).pop();
-        setState(
-          () {
-            _isLoading = false;
-          },
-        );
-      },
-    );
+          content: const Text('Something went wrong!'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Ok!'),
+            ),
+          ],
+        ),
+      );
+    } finally {
+      Navigator.of(context).pop();
+      setState(
+        () {
+          _isLoading = false;
+        },
+      );
+    }
   }
 
   @override

@@ -51,33 +51,33 @@ class Products with ChangeNotifier {
     return _items.firstWhere((element) => element.id == id);
   }
 
-  Future<void> addProduct(Product product) {
+  Future<void> addProduct(Product product) async {
     final uri = Uri.parse(FIREBASE_URL + 'products');
-    return http
-        .post(uri,
-            body: json.encode(
-              {
-                'title': product.title,
-                'description': product.description,
-                'imageUrl': product.imageUrl,
-                'isFavourite': product.isFavourite,
-                'price': product.price
-              },
-            ))
-        .then((reponse) {
+    try {
+      final response = await http.post(uri,
+          body: json.encode(
+            {
+              'title': product.title,
+              'description': product.description,
+              'imageUrl': product.imageUrl,
+              'isFavourite': product.isFavourite,
+              'price': product.price
+            },
+          ));
       _items.add(
         Product(
-          id: json.decode(reponse.body)['name'],
+          id: json.decode(response.body)['name'],
           title: product.title,
           description: product.description,
           price: product.price,
           imageUrl: product.imageUrl,
         ),
       );
+    } catch (error) {
+      rethrow;
+    } finally {
       notifyListeners();
-    }).catchError((error) {
-      throw error;
-    });
+    }
   }
 
   void deleteProduct(String id) {
