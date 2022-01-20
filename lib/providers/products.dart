@@ -52,7 +52,7 @@ class Products with ChangeNotifier {
   }
 
   Future<void> addProduct(Product product) {
-    final uri = Uri.parse(FIREBASE_URL + 'products.json');
+    final uri = Uri.parse(FIREBASE_URL + 'products');
     return http
         .post(uri,
             body: json.encode(
@@ -75,6 +75,8 @@ class Products with ChangeNotifier {
         ),
       );
       notifyListeners();
+    }).catchError((error) {
+      throw error;
     });
   }
 
