@@ -1,6 +1,7 @@
 // ignore: avoid_web_libraries_in_flutter
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shop_app/providers/products.dart';
 
 import '/providers/cart.dart';
 
@@ -21,6 +22,22 @@ class ProductsOverView extends StatefulWidget {
 
 class _ProductsOverViewState extends State<ProductsOverView> {
   var _showFavorites = false;
+  var _isLoading = false;
+
+  @override
+  void initState() {
+    setState(() {
+      _isLoading = true;
+    });
+    Future.delayed(Duration.zero).then((_) {
+      Provider.of<Products>(context, listen: false).fetchAllData().then((_) {
+        setState(() {
+          _isLoading = false;
+        });
+      });
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +84,11 @@ class _ProductsOverViewState extends State<ProductsOverView> {
         ],
       ),
       drawer: AppDrawer(),
-      body: ProductsGrid(_showFavorites),
+      body: _isLoading
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+          : ProductsGrid(_showFavorites),
     );
   }
 }
